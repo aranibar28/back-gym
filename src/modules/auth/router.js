@@ -1,5 +1,4 @@
-import { AuthLogin } from "./index";
-import { AuthRegister } from "./index";
+import { AuthLogin, AuthRegister } from "./index";
 
 export const authRouter = [
   {

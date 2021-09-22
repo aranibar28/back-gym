@@ -1,22 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { useHistory } from "react-router-dom";
+
 export function AuthRegister() {
   const [formState, setFormState] = useState({
     name: "",
     lastname: "",
     phone: "",
+    type: "",
     email: "",
     password: "",
-    terms: false
+    terms: false,
   });
+
+  const history = useHistory();
 
   const onSubmit = (event) => {
     event.preventDefault();
     console.log("Datos:", formState);
+    console.log("History:", history);
+    
+    formState.type === "Cliente"
+      ? history.push("/clientes")
+      : history.push("/trainers");
   };
+
+  useEffect(() => {
+    // ACA LLAMARAN SERVICIOS
+  }, []);
 
   return (
     <div className="auth-login">
@@ -71,6 +89,29 @@ export function AuthRegister() {
             />
           </div>
           <div className="mb-4">
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                Tipo de usuario
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={formState.type}
+                label="Tipo de usuario"
+                onChange={(event) =>
+                  setFormState((state) => ({
+                    ...state,
+                    type: event.target.value,
+                  }))
+                }
+                required
+              >
+                <MenuItem value={"Cliente"}>Cliente</MenuItem>
+                <MenuItem value={"Trainer"}>Trainer</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+          <div className="mb-4">
             <TextField
               className="w-full"
               label="Correo"
@@ -116,7 +157,7 @@ export function AuthRegister() {
           </div>
 
           <div>
-          <FormControlLabel
+            <FormControlLabel
               control={
                 <Checkbox
                   checked={formState.terms}

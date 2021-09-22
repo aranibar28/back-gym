@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+
 export function AuthLogin() {
   const [formState, setFormState] = useState({
     user: "",
@@ -14,6 +15,10 @@ export function AuthLogin() {
     event.preventDefault();
     console.log("Datos:", formState);
   };
+
+  useEffect(() => {
+    // ACA LLAMARAN SERVICIOS
+  }, []);
 
   return (
     <div className="auth-login">
